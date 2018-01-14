@@ -196,12 +196,14 @@
 					1F8CE670200A97C600C6384C = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = GDP24D6J8J;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1F8CE65F200A97C600C6384C;
 					};
 					1F8CE67B200A97C600C6384C = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = GDP24D6J8J;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1F8CE65F200A97C600C6384C;
 					};
@@ -408,7 +410,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.small.jeff.ScreenCapture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -422,7 +424,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.small.jeff.ScreenCapture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -437,7 +439,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.small.jeff.ScreenCaptureTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScreenCapture.app/Contents/MacOS/ScreenCapture";
 			};
 			name = Debug;
@@ -453,7 +456,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.small.jeff.ScreenCaptureTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScreenCapture.app/Contents/MacOS/ScreenCapture";
 			};
 			name = Release;
@@ -468,7 +472,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.small.jeff.ScreenCaptureUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = ScreenCapture;
 			};
 			name = Debug;
@@ -483,7 +488,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.small.jeff.ScreenCaptureUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = ScreenCapture;
 			};
 			name = Release;
@@ -507,6 +513,7 @@
 				1F8CE687200A97C600C6384C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1F8CE688200A97C600C6384C /* Build configuration list for PBXNativeTarget "ScreenCaptureTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +522,7 @@
 				1F8CE68A200A97C600C6384C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1F8CE68B200A97C600C6384C /* Build configuration list for PBXNativeTarget "ScreenCaptureUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +531,7 @@
 				1F8CE68D200A97C600C6384C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
