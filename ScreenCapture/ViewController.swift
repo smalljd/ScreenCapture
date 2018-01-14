@@ -9,6 +9,11 @@
 import AVFoundation
 import Cocoa
 
+enum CaptureState {
+    case running
+    case stopped
+}
+
 class ViewController: NSViewController {
 
     @IBOutlet weak var outputTextField: NSTextField!
@@ -16,17 +21,10 @@ class ViewController: NSViewController {
 
     var session: AVCaptureSession?
     var movieFileOutput: AVCaptureMovieFileOutput?
-
-    var isRecording = false
+    var captureState: CaptureState = .stopped
 
     // Screen recordings are expected to be in .mov format
-    let outputURL = URL(fileURLWithPath: "/Users/Jeff/Desktop/movie.mov", isDirectory: false)
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+    let outputURL = URL(fileURLWithPath: "/Users/Jeff/Desktop/movie.mov")
 
     override var representedObject: Any? {
         didSet {
@@ -35,13 +33,12 @@ class ViewController: NSViewController {
     }
 
     @IBAction func didTapCaptureScreen(_ sender: Any) {
-        if isRecording {
-            finishRecording()
-        } else {
+        switch captureState {
+        case .stopped:
             recordScreen(outputDestination: outputURL)
+        case .running:
+            finishRecording()
         }
-
-        isRecording = !isRecording
     }
 
     func recordScreen(outputDestination: URL) {
@@ -49,25 +46,13 @@ class ViewController: NSViewController {
         session?.sessionPreset = .high
 
         addInput(displayID: CGMainDisplayID(), toSession: session)
+        addOutput(AVCaptureMovieFileOutput(), toSession: session)
 
-        movieFileOutput = AVCaptureMovieFileOutput()
+        // Overwrite any existing file at the output destination
+        deleteFileIfExists(at: outputDestination)
 
-        if session?.canAddOutput(movieFileOutput) == true {
-            session?.addOutput(movieFileOutput)
-        }
-
+        // Start the show 🎥
         session?.startRunning()
-
-        // Delete any existing movie file at the specified destination
-        if FileManager.default.fileExists(atPath: outputDestination.path) {
-            do {
-                try FileManager.default.removeItem(at: outputDestination)
-
-            } catch (let error) {
-                print("Error removing file at \(outputDestination.path): \n\(error)")
-            }
-        }
-
         movieFileOutput?.startRecording(to: outputDestination, recordingDelegate: self)
     }
 
@@ -79,6 +64,28 @@ class ViewController: NSViewController {
         let input = AVCaptureScreenInput(displayID: displayID)
         if session.canAddInput(input) {
             session.addInput(input)
+        }
+    }
+
+    private func addOutput(_ output: AVCaptureFileOutput, toSession session: AVCaptureSession?) {
+        guard let session = session else {
+            return
+        }
+
+        if session.canAddOutput(output) {
+            session.addOutput(output)
+        }
+    }
+
+    func deleteFileIfExists(at url: URL) {
+        // Delete any existing movie file at the specified destination
+        if FileManager.default.fileExists(atPath: url.path) {
+            do {
+                try FileManager.default.removeItem(at: url)
+
+            } catch (let error) {
+                print("Error removing file at \(url.path): \n\(error)")
+            }
         }
     }
 
@@ -98,4 +105,3 @@ extension ViewController: AVCaptureFileOutputRecordingDelegate {
         session?.stopRunning()
     }
 }
-
