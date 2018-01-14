@@ -18,7 +18,8 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var outputTextField: NSTextField!
     @IBOutlet weak var outputTextFieldLabel: NSTextFieldCell!
-
+    @IBOutlet weak var captureButton: NSButton!
+    
     var session: AVCaptureSession?
     var movieFileOutput: AVCaptureMovieFileOutput?
     var captureState: CaptureState = .stopped
@@ -36,17 +37,24 @@ class ViewController: NSViewController {
         switch captureState {
         case .stopped:
             recordScreen(outputDestination: outputURL)
+            captureState = .running // Flip it
         case .running:
             finishRecording()
+            captureState = .stopped // Flip it
         }
+
+        updateView(forState: captureState)
     }
 
     func recordScreen(outputDestination: URL) {
+        // Initialize the session
         session = AVCaptureSession()
         session?.sessionPreset = .high
 
+        // Add the input source and output destination to the session
+        movieFileOutput = AVCaptureMovieFileOutput()
         addInput(displayID: CGMainDisplayID(), toSession: session)
-        addOutput(AVCaptureMovieFileOutput(), toSession: session)
+        addOutput(movieFileOutput ?? AVCaptureMovieFileOutput(), toSession: session)
 
         // Overwrite any existing file at the output destination
         deleteFileIfExists(at: outputDestination)
@@ -82,7 +90,6 @@ class ViewController: NSViewController {
         if FileManager.default.fileExists(atPath: url.path) {
             do {
                 try FileManager.default.removeItem(at: url)
-
             } catch (let error) {
                 print("Error removing file at \(url.path): \n\(error)")
             }
@@ -92,8 +99,19 @@ class ViewController: NSViewController {
     func finishRecording() {
         movieFileOutput?.stopRecording()
     }
+
+    // MARK: View Configuration
+    func updateView(forState captureState: CaptureState) {
+        switch captureState {
+        case .running:
+            captureButton.cell?.title = "Stop Recording"
+        case .stopped:
+            captureButton.cell?.title = "Capture Screen"
+        }
+    }
 }
 
+// MARK: AVCaptureFileOutputRecordingDelegate
 extension ViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if error == nil {
