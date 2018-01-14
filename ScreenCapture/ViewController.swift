@@ -46,7 +46,7 @@ class ViewController: NSViewController {
 
     func recordScreen(outputDestination: URL) {
         session = AVCaptureSession()
-        session?.sessionPreset = AVCaptureSessionPresetHigh
+        session?.sessionPreset = .high
 
         addInput(displayID: CGMainDisplayID(), toSession: session)
 
@@ -68,15 +68,15 @@ class ViewController: NSViewController {
             }
         }
 
-        movieFileOutput?.startRecording(toOutputFileURL: outputDestination,
-                                        recordingDelegate: self)
+        movieFileOutput?.startRecording(to: outputDestination, recordingDelegate: self)
     }
 
     private func addInput(displayID: CGDirectDisplayID, toSession session: AVCaptureSession?) {
-        guard let input = AVCaptureScreenInput(displayID: displayID), let session = session else {
+        guard let session = session else {
             fatalError("Could not capture main display input.")
         }
 
+        let input = AVCaptureScreenInput(displayID: displayID)
         if session.canAddInput(input) {
             session.addInput(input)
         }
@@ -88,12 +88,11 @@ class ViewController: NSViewController {
 }
 
 extension ViewController: AVCaptureFileOutputRecordingDelegate {
-    public func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
-
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if error == nil {
             outputTextField.stringValue = "Screen captured: \(outputURL.path)"
         } else {
-            outputTextField.stringValue = "Error capturing screen: \(error.localizedDescription)"
+            outputTextField.stringValue = "Error capturing screen: \(error?.localizedDescription ?? "")"
         }
 
         session?.stopRunning()
