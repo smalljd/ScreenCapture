@@ -17,7 +17,6 @@ enum CaptureState {
 class ViewController: NSViewController {
 
     @IBOutlet weak var outputTextField: NSTextField!
-    @IBOutlet weak var outputTextFieldLabel: NSTextFieldCell!
     @IBOutlet weak var captureButton: NSButton!
     
     var session: AVCaptureSession?

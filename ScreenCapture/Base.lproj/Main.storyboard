@@ -739,9 +739,7 @@
                     </view>
                     <connections>
                         <outlet property="captureButton" destination="zES-tb-vnE" id="YMe-SL-Hgg"/>
-                        <outlet property="outputLabel" destination="XH9-M4-8g6" id="jdX-PD-SFg"/>
-                        <outlet property="outputTextField" destination="XH9-M4-8g6" id="zJN-mE-dUf"/>
-                        <outlet property="outputTextFieldLabel" destination="drK-Rw-Sp7" id="CUU-p5-XCE"/>
+                        <outlet property="outputTextField" destination="XH9-M4-8g6" id="pWZ-PK-5Jc"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
